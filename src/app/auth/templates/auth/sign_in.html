@@ -1,0 +1,36 @@
+{%extends "layout.html"%} {%block title%}Inicio de sesion{%endblock%} 
+{%block body%}
+<div class="container pt-4">
+  <div class="row pt-4">
+    <div class="col-md-6 offset-md-3 my-auto">
+      <div class="card p-4">
+        <div class="card-body">
+          <h1 class="text-center">Iniciar Sesion</h1>
+          <!--Alerta si existe un error-->
+          {% with messages = get_flashed_messages() %} {% if messages %} {% for
+          message in messages %}
+          <div class="alert alert-danger text-center" role="alert">
+            {{message}}
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+          <!--Formulario-->
+          {{form.hidden_tag()}}
+          <form action="/api/v1/auth/signin" method="POST">
+            <div class="form-group">
+              {{form.username.label(for="username")}}
+              {{form.username(class="form-control input-correction-enpro",
+              placeholder="Username")}}
+            </div>
+            <div class="form-group">
+              {{form.password.label(for="password")}}
+              {{form.password(class="form-control input-correction-enpro",
+              placeholder="Password")}}
+            </div>
+            {{form.btn_submit(class="btn btn-outline-primary btn-block")}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

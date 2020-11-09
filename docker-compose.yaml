@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "enpro123"
+      POSTGRES_USER: "sistemas"
+      POSTGRES_DB: "peg_prod"
+    ports:
+      - "5432:5432"
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
+      - peg_network
+
+  web:
+    image: peg:v1
+    command: gunicorn --bind 0.0.0.0:8000 --workers 4 "entrypoint:main()"
+    container_name: peg_app
+    restart: always
+    volumes:
+      - ./src:/var/www
+    environment:
+      SECRET_KEY: "9bfc9234lkw82y34n1y9o2ynxsow3o948723xjeudsf1hcnsndveb7234s"
+      SETTING_MODULE_PEG: "config.prod"
+      USER_DATABASE: "sistemas"
+      PASSWORD_DATABASE: "enpro123"
+      NAME_DATABASE: "peg_prod"
+      PORT_DATABASE: 5432
+      HOST_DATABASE: db
+    depends_on:
+      - db
+    links:
+      - db:db
+    networks:
+      - peg_network
+
+  nginx:
+    image: nginx-peg:v1
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./src:/var/www
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
+    networks:
+      - peg_network
+
+volumes:
+  database:
+
+networks:
+  peg_network:
+    driver: bridge

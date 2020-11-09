@@ -1,0 +1,282 @@
+{% extends 'navbar.html' %} {%block title%}Titular-Temprana | ENPRO{%endblock%}
+{%block body%}
+<style>
+  .nav-link:hover {
+    color: #ffffff;
+    background-color: rgb(40, 40, 40);
+  }
+</style>
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          {%if data.audio.audio%}
+          <p class="txt-form">
+            <audio src="/static/audios/{{data.audio.name}}" controls="controls" type="audio/mpeg" preload="preload"></audio>
+          </p>
+          {%endif%}
+          <form action="/api/v1/team_leader/results" method="POST">
+            <!--Saludo-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Saludo</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.identity_holder(class="form-check-input",title="identifica
+                  al titular por el nombre de pila y verifica la identidad del
+                  deudor")}} {{
+                  form.identity_holder.label(class='form-check-label',
+                  for='identity_holder') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.presentation(class="form-check-input",title="Presentación
+                  propia con Nombre y Apellido") }} {{
+                  form.presentation.label(class='form-check-label',
+                  for='presentation') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.presentation_company(class="form-check-input",title="Presento
+                  a la empresa/cliente y su situacion de la carpeta, ej:
+                  Derivado a inicio judicial, etc") }} {{
+                  form.presentation_company.label(class='form-check-label',
+                  for='presentation_company') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.debt_presentation(class="form-check-input",title='Presenta
+                  deuda con monto a pagar y dice "Paga hoy o mañana?"') }} {{
+                  form.debt_presentation.label(class='form-check-label',
+                  for='debt_presentation') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.meets_criteria(class="form-check-input",title="Cumple
+                  todo los criterios en orden correcto") }} {{
+                  form.meets_criteria.label(class='form-check-label',
+                  for='meets_criteria') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Actitud-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Actitud</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.voice_tone(class="form-check-input",title="No usa un
+                  tono de voz monotono") }} {{
+                  form.voice_tone.label(class='form-check-label',
+                  for='voice_tone') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.empathy(class="form-check-input",title="Empatia con el
+                  deudor pero orientado a la cobranza") }} {{
+                  form.empathy.label(class='form-check-label', for='empathy') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.words_repeat(class='form-check-input",title="No
+                  utiliza muletillas(p.e. "eeehh", "mmmm", silencios, etc.)') }}
+                  {{ form.words_repeat.label(class='form-check-label',
+                  for='words_repeat') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.treat_you(class="form-check-input",title="Tratar de
+                  usted al deudor") }} {{
+                  form.treat_you.label(class='form-check-label',
+                  for='treat_you') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.secure_presentation(class="form-check-input",title="Seguridad
+                  en la presentacion de datos y abordar objeciones") }} {{
+                  form.secure_presentation.label(class='form-check-label',
+                  for='secure_presentation') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Negociacion 1-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Negociacion 1</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.start_negotiation(class="form-check-input",title="Comenzar
+                  la negociacion con silencio despues de la presentacion") }} {{
+                  form.start_negotiation.label(class='form-check-label',
+                  for='start_negotiation') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.active_listening(class="form-check-input",title="Realizar
+                  escucha activa: Utilizar la informacion proporcionada del
+                  deudor en el llamado(p.e. parafrasea, utiliza palabras del
+                  deudor, etc.)") }} {{
+                  form.active_listening.label(class='form-check-label',
+                  for='active_listening') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.preparation(class="form-check-input",title="Preparacion:
+                  Debo chequear el estado del deudor en los sistemas
+                  disponibles(Gestiones previas en Collecto, portal info
+                  digitales, ANSES, datos proporcionados del cliente)") }} {{
+                  form.preparation.label(class='form-check-label',
+                  for='preparation') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Negociacion 2 (CRITICO)-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">
+                  Negociacion 2
+                  <p class="punto-critico">(Punto Critico)</p>
+                </h5>
+                <div class="form-check form-check-inline">
+                  {{ form.negotiation_two(class="form-check-input",
+                  title="Realiza negociacion segun registros previos y el
+                  analisis de datos: comenzando por el primer item y ante una
+                  negatividad avanza en lista: 1-Pide el total de la deuda
+                  2-Solicitar un pago del 80% de la deuda total 3-Indaga el
+                  maximo dinero disponible que puede pagar el deudor(como minimo
+                  el 50%) Solicitar y corroborar nuevos datos de contacto
+                  ----------------------------------------------- Rebatir
+                  objeciones: Se evalua sí las detecta, como las aborda y como
+                  utiliza los datos y herramientas para conducir a un cierre
+                  exitoso ----------------------------------------------- Los
+                  plazos de negociacion son de un maximo de 48hs ") }} {{
+                  form.negotiation_two.label(class='form-check-label',
+                  for='negotiation_two') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Registro 1-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Registro 1</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.collector_registration(class="form-check-input",title="Debe
+                  registrar la gestion en Collector") }} {{
+                  form.collector_registration.label(class='form-check-label',
+                  for='collector_registration') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.managementes_result(class="form-check-input",title="Tipo
+                  de gestion: Segun corresponda(otro-carta-llamada
+                  entrante-llamada saliente-mail-whatsapp) Seleccionar
+                  resultado: EXITOSO: Promesa de pago NO EXITOSO: Promesa de
+                  pago inclupida-negociacion-contacto pendiente-incobrable
+                  NEUTRO: fraude-verificapago") }} {{
+                  form.managementes_result.label(class='form-check-label',
+                  for='managementes_result') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.new_debtor_data(class="form-check-input",title="Registrar
+                  nuevo datos obtenidos") }} {{
+                  form.new_debtor_data.label(class='form-check-label',
+                  for='new_debtor_data') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.generate_promise(class="form-check-input",title="Si
+                  genera una promesa debe cargarlos en la cuenta corriente de
+                  COllector: Debe cargar fecha de pago-monto-lugar") }} {{
+                  form.generate_promise.label(class='form-check-label',
+                  for='generate_promise') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.load_promise_managment(class="form-check-input",title="Tiene
+                  que cargar la promesa y gestion en el sistema del
+                  cliente(Valiadar con el Cliente)") }} {{
+                  form.load_promise_managment.label(class='form-check-label',
+                  for='load_promise_managment') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Registro 2-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Registro 2</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.add_contact(class="form-check-input",title="Agendar
+                  próximo contacto máximo 72hs") }} {{
+                  form.add_contact.label(class='form-check-label',
+                  for='add_contact') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.writing_field(class="form-check-input",title="Estructura
+                  de campo libre de escritura: Numero de telefono-con quien
+                  hablo-deuda informada-propuesta realizada-lugar de pago-resume
+                  de gestion(máximo 3 renglones)") }} {{
+                  form.writing_field.label(class='form-check-label',
+                  for='writing_field') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.abbreviations(class="form-check-input",title="Utilizar
+                  abreviatura correctamente") }} {{
+                  form.abbreviations.label(class='form-check-label',
+                  for='abbreviations') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Cierre-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Cierre</h5>
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger text-center" role="alert">
+                  <p>{{message}}</p>
+                </div>
+                {%endfor%} {%endif%} {%endwith%}
+                <div class="form-check-inline">
+                  <div class="form-check form-check-inline">
+                    {{ form.successful(class="form-check-input",title="Debe
+                    recordar la fehca, el lugar, el monto y comunicarse para
+                    informar el pago") }} {{
+                    form.successful.label(class='form-check-label',
+                    for='successful') }}
+                  </div>
+                  <div class="form-check form-check-inline">
+                    {{ form.not_successful(class="form-check-input",title="Debe
+                    argumentar negativamente infromando las consecuencias de no
+                    pagar") }} {{
+                    form.not_successful.label(class='form-check-label',
+                    for='not_successful') }}
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.remember_date(class="form-check-input",title="Debe
+                  recordar fecha/plazo edn donde nos tiene que llamar para
+                  informarnos que solición encontó(plazo no mayor a 48hs)") }}
+                  {{ form.remember_date.label(class='form-check-label',
+                  for='remember_date') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.provide_data(class="form-check-input",title="Debe
+                  brindar y repasar nuestros datos para comunicarse") }} {{
+                  form.provide_data.label(class='form-check-label',
+                  for='provide_data') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            {{ form.btn_submit(class='btn btn-outline-info btn-md btn-block') }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

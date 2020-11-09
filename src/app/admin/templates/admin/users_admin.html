@@ -1,0 +1,87 @@
+{%extends 'navbar_admin.html'%} {% block title %}Usuarios{% endblock %} {% block
+body %}
+<style>
+  .link-enpro {
+    text-decoration: none !important;
+  }
+  .bg-enpro {
+    border: 1px solid rgb(61, 61, 61);
+  }
+  .bg-enpro:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    -webkit-box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+  }
+</style>
+<div class="container">
+  <div class="row py-4">
+    <div class="col-md-4">
+      <div class="card bg-enpro">
+        <div class="card-body">
+          <a href="/users/admin" class="link-enpro">
+            <h3 class="py-4 text-center">Administradores</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-enpro">
+        <div class="card-body">
+          <a href="/users/team_leader" class="link-enpro">
+            <h3 class="py-4 text-center">Team Leader</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card bg-enpro">
+        <div class="card-body">
+          <a href="/users/manage" class="link-enpro">
+            <h3 class="py-4 text-center">Gestores</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 my-auto">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="text-center">Agregar Usuario</h3>
+          <!--Alerta si existe un error-->
+          {% with messages = get_flashed_messages() %} {% if messages %} {% for
+          message in messages %}
+          <div class="alert {{ category }} text-center" role="alert">
+            {{message}}
+          </div>
+          {% endfor %} {% endif %} {% endwith %} {{form.hidden_tag()}}
+          <form action="/api/v1/admin/user" method="POST">
+            <div class="form-gorup pb-2">
+              {{form.number_internal.label}}
+              {{form.number_internal(class="form-control", placeholder="Numero de Interno")}}
+            </div>
+            <div class="form-gorup pb-2">
+              {{form.password.label}} {{form.password(class="form-control",
+              placeholder="Password")}}
+            </div>
+            <div class="form-gorup pb-2">
+              {{form.name.label}} {{form.name(class="form-control",
+              placeholder="Nombre")}}
+            </div>
+            <div class="form-gorup pb-2">
+              {{form.last_name.label}} {{form.last_name(class="form-control",
+              placeholder="Apellido")}}
+            </div>
+            <div class="form-gorup pb-4">
+              {{form.category.label}} {{form.category(class="form-control")}}
+            </div>
+            {{form.btn_submit(class="btn btn-success btn-md btn-block")}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

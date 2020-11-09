@@ -1,0 +1,62 @@
+{%extends 'navbar.html'%} {%block title%}Resultados{%endblock%} {%block body%}
+<div class="container">
+  <h1 class="pt-4 text-center display-4">Resultados</h1>
+  <div class="row">
+    <div class="col-md my-auto">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Team Leader</th>
+            <th scope="col">Gestor</th>
+            <th scope="col">Resultado</th>
+            <th scope="col">Mora y Contacto</th>
+            <th scope="col">Fecha de evaluacion</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Audio</th>
+            <th scope="col">Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for data in datas%}
+          <tr>
+            <td>{{data.team_leader}}</td>
+            <td>{{data.data_evaluation.number_internal}}</td>
+            <td>{{data.result_evaluation.result}}</td>
+            <td>
+              {%if data.data_evaluation.default == 'early' %}
+                Temprana
+              {%elif data.data_evaluation.default == 'last'%}
+                Tardia
+              {%else%}
+                t
+              {%endif%} -
+              {%if data.data_evaluation.contact == 'headline' %}
+                Titular
+              {%elif data.data_evaluation.contact == 'third'%}
+                Terceros
+              {%else%}
+                Contestador
+              {%endif%}
+            </td>
+            <td>{{data.data_evaluation.date_evaluation}}</td>
+            <td>{{data.data_evaluation.phone}}</td>
+            <td>
+              <p class="txt-form">
+                <audio src="/static/audios/{{data.audio}}" controls="controls" type="audio/mpeg" preload="preload"></audio>
+              </p>
+            </td>
+            <td>
+              <a
+                href="/see_more/{{data._id}}"
+                class="btn btn-success btn-sm"
+                >Ver Mas</a
+              >
+            </td>
+            {%endfor%}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{%endblock%}

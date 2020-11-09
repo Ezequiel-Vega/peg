@@ -1,0 +1,43 @@
+{%include 'layout.html'%}
+<head>
+  <title>{%block title%}{%endblock%}</title>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/team_leader">
+    <h2 class="display-4">ENPRO</h2>
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="mr-auto"></ul>
+    <form class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/home/team_leader"
+            >Inicio <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/evaluation">Evaluacion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/results">Resultados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="/auth/closed">Cerrar sesion</a>
+        </li>
+      </ul>
+    </form>
+  </div>
+</nav>
+{%block body%} {%endblock%}

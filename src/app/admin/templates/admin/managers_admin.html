@@ -1,0 +1,29 @@
+{%extends 'navbar_admin.html'%} {% block title %}Gestores{% endblock %} {% block
+body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Nombre y Apellido</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for manager in managers%}
+          <tr>
+            <td>{{manager._id}}</td>
+            <td>{{manager.username}}</td>
+            <td>{{manager.name}} - {{manager.last_name}}</td>
+            <td><a data-method='delete' href="/api/v1/admin/user/{{manager._id}}" class="btn btn-danger btn-md btn-block">Eliminar</a></td>
+            {%endfor%}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{%endblock%}

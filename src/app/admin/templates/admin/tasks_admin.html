@@ -1,0 +1,71 @@
+{%extends 'navbar_admin.html'%} {% block title %}{% endblock %} {% block body %}
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md">
+            <h3 class="text-center">Agregar Tarea</h3>
+            <div class="card">
+              <div class="card-body">
+                <!--Alerta si existe un error-->
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                {% for message in messages %}
+                <div class="alert {{ category }} text-center" role="alert">
+                  {{message}}
+                </div>
+                {% endfor %} {% endif %} {% endwith %} {{form.hidden_tag()}}
+                <form action="/api/v1/admin/tasks" method="POST">
+                  <div class="form-group">
+                    {{form.team_leader.label}}
+                    {{form.team_leader(class="form-control",
+                    placeholder="Agregar Team Leader")}}
+                  </div>
+                  <div class="form-group">
+                    {{form.manager.label}} {{form.manager(class="form-control",
+                    placeholder="Agregar Gestor separados por ;(punto y
+                    coma)")}}
+                  </div>
+                  <div class="form-group">
+                    {{form.date.label}} {{form.date(class="form-control",
+                    type="date")}}
+                  </div>
+                  {{form.btn_submit(class="btn btn-success btn-md btn-block")}}
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Team Leader</th>
+                  <th>Gestor</th>
+                  <th>Fecha</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for task in tasks%}
+                    <tr>
+                      <td>{{task.team_leader}}</td> 
+                      <td>{{task.managers}}</td> 
+                      <td>{{task.date}}</td>
+                      <td>
+                        <a
+                          href="/api/v1/admin/tasks/{{task._id}}"
+                          class="btn btn-danger btn-block"
+                          >Eliminar</a
+                        >
+                      </td>
+                  {%endfor%}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

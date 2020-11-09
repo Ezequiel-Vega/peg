@@ -1,0 +1,64 @@
+{%extends 'navbar.html'%} {%block title%}Home{%endblock%} {%block body%}
+<style>
+  .link-enpro {
+    text-decoration: none !important;
+  }
+  .bg-enpro {
+    border: 1px solid rgb(61, 61, 61);
+  }
+  .bg-enpro:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    -webkit-box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+  }
+</style>
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md">
+      <div class="card card-body bg-enpro">
+        <div class="text-center">
+          <a href="/evaluation" class="link-enpro">
+            <img src="" alt="" />
+            <h3 class="py-4">Evaluacion</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="card card-body bg-enpro">
+        <div class="text-center">
+          <a href="/results" class="link-enpro">
+            <img src="" alt="" />
+            <h3 class="py-4">Resultados</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row pt-4">
+    <div class="col-md">
+      <h2 class="text-center">Agenda mensual</h2>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Gestor</th>
+            <th>Fecha Limite</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{task.manager}}</td>
+            <td>{{task.date}}</td>
+            <td><a href="/api/v1/team_leader/task/{{task.id_tasks}}" class="btn btn-success btn-block">Cumplido</a></td>
+            {%endfor%}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{%endblock%}

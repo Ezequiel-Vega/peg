@@ -1,0 +1,62 @@
+{%extends 'navbar_admin.html'%} {% block title %}Evaluaciones{% endblock %} {%
+block body %}
+<div class="container">
+  {{form.hidden_tag()}}
+  <form class="my-2 my-lg-4" action="/api/v1/admin/evaluations" method="POST">
+    <div class="row">
+      <div class="col-md-5">
+        {{form.input_select.label}} {{form.input_select(class="form-control",
+        placeholder="Buscar Evaluacion")}}
+      </div>
+      <div class="col-md-2">
+        {{form.btn_submit(class="btn btn-success btn-md btn-block mt-4")}}
+      </div>
+    </div>
+  </form>
+  <!--Alerta si existe un error-->
+  {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+      {% for category, message in messages %}
+        <div class="alert {{ category }} text-center" role="alert">
+          {{message}}
+        </div>
+      {% endfor %} 
+    {% endif %} 
+  {% endwith %}
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Team Leader</th>
+        <th scope="col">Gestor</th>
+        <th scope="col">Resultado</th>
+        <th scope="col">Mora y Contacto</th>
+        <th scope="col">Fecha de evaluacion</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Info</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for evaluation in evaluations%}
+      <tr>
+        <td>{{evaluation.data_evaluation.team_leader}}</td>
+        <td>{{evaluation.data_evaluation.number_internal}}</td>
+        <td>{{evaluation.result_evaluation}}</td>
+        <td>
+          {{evaluation.data_evaluation.default}} -
+          {{evaluation.data_evaluation.contact}}
+        </td>
+        <td>{{evaluation.data_evaluation.date_evaluation}}</td>
+        <td>{{evaluation.data_evaluation.phone}}</td>
+        <td>
+          <a
+            href="/evaluations/{{evaluation._id}}"
+            class="btn btn-success btn-sm"
+            >Ver Mas</a
+          >
+        </td>
+        {%endfor%}
+      </tr>
+    </tbody>
+  </table>
+</div>
+{%endblock%}

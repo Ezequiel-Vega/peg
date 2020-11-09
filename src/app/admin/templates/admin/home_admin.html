@@ -1,0 +1,51 @@
+{%extends 'navbar_admin.html'%} {% block title %}Home{% endblock %} 
+{% block body %}
+<style>
+  .link-enpro {
+    text-decoration: none !important;
+  }
+  .bg-enpro {
+    border: 1px solid rgb(61, 61, 61);
+  }
+  .bg-enpro:hover {
+    transform: scale(1.1);
+    transition-duration: 0.5s;
+    -webkit-box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 33px -12px rgba(0, 0, 0, 0.75);
+  }
+</style>
+<div class="container">
+  <div class="row py-4">
+    <div class="col-md">
+      <div class="card card-body bg-enpro">
+        <div class="card-body">
+          <a href="/evaluations" class="link-enpro">
+            <h3 class="py-4 text-center">Evaluaciones</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md">
+      <div class="card card-body bg-enpro">
+        <div class="card-body">
+          <a href="/user" class="link-enpro">
+            <h3 class="py-4 text-center">Agregar Usuarios</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <div class="card card-body bg-enpro">
+        <div class="card-body">
+          <a href="/tasks" class="link-enpro">
+            <h3 class="py-4 text-center">Tareas</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

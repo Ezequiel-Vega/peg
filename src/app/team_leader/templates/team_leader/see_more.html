@@ -1,0 +1,214 @@
+{%extends 'navbar.html'%} {%block title%}Ver mas{%endblock%} {%block body%}
+<style>
+  .text-enpro {
+    font-size: 1.2em;
+  }
+</style>
+<div class="container">
+  <h1 class="text-center display-4">Infromacion detallada</h1>
+  <div class="row pb-4">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          <a href="/results" class="btn btn-outline-info"
+            >Volver atras</a
+          >
+          <div class="row pt-4">
+            <!--Datos de la evaluacion-->
+            <div class="col-md-4">
+              <h5 style="text-decoration: underline;">
+                Datos de la evaluacion
+              </h5>
+              <p>
+                <span class="font-weight-bold text-enpro"
+                  >Numero del gestor:
+                </span>
+                {{data.data_evaluation.number_internal}}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro">Contacto: </span>
+                {%if data.data_evaluation.contact == 'headline'%}
+                  Titular
+                {%elif data.data_evaluation.contact == 'third'%}
+                  Tercero
+                {%elif data.data_evaluation.contact == 'answering_machine'%}
+                  Contestador
+                {%endif%}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro">Mora: </span>
+                {%if data.data_evaluation.default == 'early'%}
+                  Temprana
+                {%else%}
+                  Tardia
+                {%endif%}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro"
+                  >Fecha del Audio:
+                </span>
+                {{data.data_evaluation.date_audio}}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro"
+                  >Fecha de Evaluacion:</span
+                >
+                {{data.data_evaluation.date_evaluation}}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro">Telefono:</span>
+                {{data.data_evaluation.phone}}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro"
+                  >Nombre del audio:</span
+                >
+                {{data.data_evaluation.name_audio}}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro">Team Leader:</span>
+                {{data.data_evaluation.team_leader}}
+              </p>
+              <p>
+                <span class="font-weight-bold text-enpro">Observacion:</span>
+                {{data.observation}}
+              </p>
+            </div>
+            <!--Resultados de la evaluacion-->
+            <div class="col-md-3">
+              <h5 style="text-decoration: underline;">
+                Resultados de la evaluacion
+              </h5>
+              {%if data.data_evaluation.contact == 'headline'%}
+              <span class="">
+                <p>
+                  <span class="font-weight-bold text-enpro">Saludo: </span>
+                  {{data.result_evaluation.salute}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Actitud: </span>
+                  {{data.result_evaluation.attitude}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro"
+                    >Negociacion 1:
+                  </span>
+                  {{data.result_evaluation.negotiation_one}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro"
+                    >Negociacion 2:
+                  </span>
+                  {{data.result_evaluation.negotiation_two}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Registro 1: </span>
+                  {{data.result_evaluation.registration_one}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Registro 2: </span>
+                  {{data.result_evaluation.registration_two}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Cierre: </span>
+                  {{data.result_evaluation.closing}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Resultado: </span>
+                  {{data.result_evaluation.result}}
+                </p>
+              </span>
+              {% elif data.data_evaluation.contact == 'third'%}
+              <span>
+                <p>
+                  <span class="font-weight-bold text-enpro">Saludo: </span>
+                  {{data.result_evaluation.salute}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Actitud: </span>
+                  {{data.result_evaluation.attitude}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro"
+                    >Negociacion 1:
+                  </span>
+                  {{data.result_evaluation.negotiation_one}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro"
+                    >Negociacion 2:
+                  </span>
+                  {{data.result_evaluation.negotiation_two}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Registro 1: </span>
+                  {{data.result_evaluation.registration_one}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Registro 2: </span>
+                  {{data.result_evaluation.registration_two}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Cierre: </span>
+                  {{data.result_evaluation.closing}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Resultado: </span>
+                  {{data.result_evaluation.result}}
+                </p>
+              </span>
+              {% elif data.data_evaluation.contact == 'answering_machine' %}
+              <span>
+                <p>
+                  <span class="font-weight-bold text-enpro">Saludo: </span>
+                  {{data.result_evaluation.salute}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Actitud: </span>
+                  {{data.result_evaluation.attitude}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Mensaje: </span>
+                  {{data.result_evaluation.message}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Registro 1: </span>
+                  {{data.result_evaluation.registration_one}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Registro 2: </span>
+                  {{data.result_evaluation.registration_two}}
+                </p>
+                <p>
+                  <span class="font-weight-bold text-enpro">Resultado: </span>
+                  {{data.result_evaluation.result}}
+                </p>
+              </span>
+              {%endif%}
+            </div>
+            <div clss="col-md-4">
+              {%if data.corrections != []%}
+                <h5 style="text-decoration: underline;">
+                  Correcciones de la evaluacion
+                </h5>
+                <span> 
+                  {%for correction in data.corrections%}
+                    <li>{{correction}}</li>
+                  {%endfor%} 
+                </span>
+              {%endif%}
+            </div> 
+          </div>
+          <hr/>
+          <div class="row">
+            <div class="col-md">
+              <h4>Observacion</h4> 
+              <p>{{data.observation}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

@@ -1,0 +1,177 @@
+{% extends 'navbar.html' %} {%block title%}Contestador | ENPRO{%endblock%}
+{%block body%}
+<style>
+  .title-enpro {
+    display: inline-block;
+  }
+</style>
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          {%if data.audio.audio%}
+          <p class="txt-form">
+            <audio src="/static/audios/{{data.audio.name}}" controls="controls" type="audio/mpeg" preload="preload"></audio>
+          </p>
+          {%endif%}
+          <form action="/api/v1/team_leader/results" method="POST">
+            <!--Saludo-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Saludo</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.info_holder(class="form-check-input",title="Preguntar
+                  por el nombre pila y verificar identidad del deudor")}} {{
+                  form.info_holder.label(class='form-check-label',
+                  for='info_holder') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.presentation(class="form-check-input",title="Confirmo
+                  relacion con el titular y el nombre del 3ro") }} {{
+                  form.presentation.label(class='form-check-label',
+                  for='presentation') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.presentation_company(class="form-check-input",title="Presentación
+                  propia con Nombre y Apellido") }} {{
+                  form.presentation_company.label(class='form-check-label',
+                  for='presentation_company') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.reason_call(class="form-check-input",title='Presento a
+                  la empresa/cliente y su situacion de la carpeta, ej: Derivado
+                  a inicio judicial, etc') }} {{
+                  form.reason_call.label(class='form-check-label',
+                  for='reason_call') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Actitud-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Actitud</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.voice_tone(class="form-check-input",title="No usa un
+                  tono de voz monotono") }} {{
+                  form.voice_tone.label(class='form-check-label',
+                  for='voice_tone') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.words_repeat(class="form-check-input", title="No
+                  utilizar muletillas, ej: 'eeeh', 'mmmm', silencios, etc.") }}
+                  {{ form.words_repeat.label(class='form-check-label',
+                  for='words_repeat') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.secure_presentation(class="form-check-input",title="Seguridad
+                  en la presentacion de datos y abordar objeciones") }} {{
+                  form.secure_presentation.label(class='form-check-label',
+                  for='secure_presentation') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Mensaje-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Mensaje</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.message(class="form-check-input",title="No usa un tono
+                  de voz monotono") }} {{
+                  form.message.label(class='form-check-label', for='message') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Registro 1-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Registro 1</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.collector_registration(class="form-check-input",title="Debe
+                  registrar la gestion en Collector") }} {{
+                  form.collector_registration.label(class='form-check-label',
+                  for='collector_registration') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.managementes_result(class="form-check-input",title="Tipo
+                  de gestion: Segun corresponda(otro-carta-llamada
+                  entrante-llamada saliente-mail-whatsapp) Seccion
+                  resultado:(Mensaje-familiar-mensaje tercero-mensaje domicilio
+                  titular-mensaje tercero poco contacto-mensaje laboral-mensaje
+                  vecino)") }} {{
+                  form.managementes_result.label(class='form-check-label',
+                  for='managementes_result') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Registro 2-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Registro 2</h5>
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger text-center" role="alert">
+                  <p>{{message}}</p>
+                </div>
+                {%endfor%} {%endif%} {%endwith%}
+                <div class="row">
+                  <div class="col-md">
+                    <p class="">llamada abierta</p>
+                    <div class="form-check form-check-inline">
+                      {{ form.open_call_yes(class="form-check-input",title="")
+                      }} {{
+                      form.open_call_yes.label(class="form-check-label",for='open_call_yes')
+                      }}
+                    </div>
+                    <div class="form-check form-check-inline">
+                      {{ form.open_call_no(class="form-check-input",title="") }}
+                      {{
+                      form.open_call_no.label(class="form-check-label",for='open_call_no')
+                      }}
+                    </div>
+                    <div class="form-check form-check-inline"></div>
+                    <div class="form-check form-check-inline"></div>
+                    <div class="form-check form-check-inline">
+                      {{
+                      form.add_contact(class="form-check-input",title="Agendar
+                      próximo contacto máximo 48hs") }} {{
+                      form.add_contact.label(class='form-check-label',
+                      for='add_contact') }}
+                    </div>
+                    <div class="form-check form-check-inline">
+                      {{
+                      form.writing_field(class="form-check-input",title="Estructura
+                      de campo libre de escritura: Numero de telefono-con quien
+                      hablo-deuda informada-propuesta realizada-lugar de
+                      pago-resume de gestion(máximo 3 renglones)") }} {{
+                      form.writing_field.label(class='form-check-label',
+                      for='writing_field') }}
+                    </div>
+                    <div class="form-check form-check-inline">
+                      {{
+                      form.abbreviations(class="form-check-input",title="Utilizar
+                      abreviatura correctamente") }} {{
+                      form.abbreviations.label(class='form-check-label',
+                      for='abbreviations') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            {{ form.btn_submit(class='btn btn-outline-info btn-md btn-block') }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

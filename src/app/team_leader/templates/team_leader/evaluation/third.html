@@ -1,0 +1,253 @@
+{% extends 'navbar.html' %} {%block title%}Tercero-Temprana | ENPRO{%endblock%}
+{%block body%}
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          {%if data.audio.audio%}
+          <p class="txt-form">
+            <audio src="/static/audios/{{data.audio.name}}" controls="controls" type="audio/mpeg" preload="preload"></audio>
+          </p>
+          {%endif%}
+          <form action="/api/v1/team_leader/results" method="POST">
+            <!--Saludo-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Saludo</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.identify_holder(class="form-check-input",title="Preguntar
+                  por el nombre pila y verificar identidad del deudor")}} {{
+                  form.identify_holder.label(class='form-check-label',
+                  for='identify_holder') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.relationship(class="form-check-input",title="Confirmo
+                  relacion con el titular y el nombre del 3ro") }} {{
+                  form.relationship.label(class='form-check-label',
+                  for='relationship') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.presentation(class="form-check-input",title="Presentación
+                  propia con Nombre y Apellido") }} {{
+                  form.presentation.label(class='form-check-label',
+                  for='presentation') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.presentation_company(class="form-check-input",title='Presento
+                  a la empresa/cliente y su situacion de la carpeta, ej:
+                  Derivado a inicio judicial, etc') }} {{
+                  form.presentation_company.label(class='form-check-label',
+                  for='presentation_company') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.contact_theadline(class="form-check-input",title="Solicita
+                  contacto con el titular de inmediato") }} {{
+                  form.contact_theadline.label(class='form-check-label',
+                  for='contact_theadline') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Actitud-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Actitud</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.voice_tone(class="form-check-input",title="No usa un
+                  tono de voz monotono") }} {{
+                  form.voice_tone.label(class='form-check-label',
+                  for='voice_tone') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.empathy(class="form-check-input",title="Empatia con el
+                  tercero pero orientado a la cobranza") }} {{
+                  form.empathy.label(class='form-check-label', for='empathy') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.words_repeat(class='form-check-input",title="No
+                  utiliza muletillas(p.e. "eeehh", "mmmm", silencios, etc.)') }}
+                  {{ form.words_repeat.label(class='form-check-label',
+                  for='words_repeat') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.treat_you(class="form-check-input",title="Tratar de
+                  usted al tercero") }} {{
+                  form.treat_you.label(class='form-check-label',
+                  for='treat_you') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.secure_presentation(class="form-check-input",title="Seguridad
+                  en la presentacion de datos y abordar objeciones") }} {{
+                  form.secure_presentation.label(class='form-check-label',
+                  for='secure_presentation') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Negociacion 1-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Negociacion 1</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.start_negotiation(class="form-check-input",title="Comenzar
+                  la negociacion con silencio despues de la presentacion") }} {{
+                  form.start_negotiation.label(class='form-check-label',
+                  for='start_negotiation') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.active_listening(class="form-check-input",title="Realizar
+                  escucha activa: Utilizar la informacion proporcionada del
+                  deudor en el llamado(p.e. parafrasea, utiliza palabras del
+                  deudor, etc.)") }} {{
+                  form.active_listening.label(class='form-check-label',
+                  for='active_listening') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.preparation(class="form-check-input",title="Preparacion:
+                  Debo chequear el estado del deudor en los sistemas
+                  disponibles(Gestiones previas en Collecto, portal info
+                  digitales, ANSES, datos proporcionados del cliente)") }} {{
+                  form.preparation.label(class='form-check-label',
+                  for='preparation') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Negociacion 2 (CRITICO)-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">
+                  Negociacion 2
+                  <p class="punto-critico">(Punto Critico)</p>
+                </h5>
+                <div class="form-check form-check-inline">
+                  {{ form.negotiation_two(class="form-check-input", title='Luego
+                  de reclamar el contacto, "Si me da un telefono: Informo que me
+                  comunicare ahora, pero de todas formas le dejo un msj en caso
+                  de no contactarlo
+                  -------------------------------------------------------------
+                  El mensaje debe argumentar negativamente que si el titular no
+                  paga sufrira acciones tales como(Generacuin de mas intereses,
+                  reporte negativo en el veraz, etc.) y debe manifestar
+                  explicitamente que la unica colucion es llamandonos y pagando
+                  -------------------------------------------------------------
+                  El mensaje debe involucrar ak tercero en la situacion. "Debe
+                  consultar cuando pasar el mensaje al titular"
+                  -------------------------------------------------------------
+                  Los plazos para que nos llame son de un maximo de 24hs"') }}
+                  {{ form.negotiation_two.label(class='form-check-label',
+                  for='negotiation_two') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Registro 1-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Registro 1</h5>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.collector_registration(class="form-check-input",title="Debe
+                  registrar la gestion en Collector") }} {{
+                  form.collector_registration.label(class='form-check-label',
+                  for='collector_registration') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.managementes_result(class="form-check-input",title="Tipo
+                  de gestion: Segun corresponda(otro-carta-llamada
+                  entrante-llamada saliente-mail-whatsapp) Seccion
+                  resultado:(Mensaje-familiar-mensaje tercero-mensaje domicilio
+                  titular-mensaje tercero poco contacto-mensaje laboral-mensaje
+                  vecino)") }} {{
+                  form.managementes_result.label(class='form-check-label',
+                  for='managementes_result') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.new_debtor_data(class="form-check-input",title="Tiene
+                  que cargar la gestion en el sistema del cliente(validar con el
+                  cliente)") }} {{
+                  form.new_debtor_data.label(class='form-check-label',
+                  for='new_debtor_data') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Registro 2-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Registro 2</h5>
+                <div class="form-check form-check-inline">
+                  {{ form.add_contact(class="form-check-input",title="Agendar
+                  próximo contacto máximo 48hs") }} {{
+                  form.add_contact.label(class='form-check-label',
+                  for='add_contact') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.writing_field(class="form-check-input",title="Estructura
+                  de campo libre de escritura: Numero de telefono-con quien
+                  hablo-deuda informada-propuesta realizada-lugar de pago-resume
+                  de gestion(máximo 3 renglones)") }} {{
+                  form.writing_field.label(class='form-check-label',
+                  for='writing_field') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.abbreviations(class="form-check-input",title="Utilizar
+                  abreviatura correctamente") }} {{
+                  form.abbreviations.label(class='form-check-label',
+                  for='abbreviations') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            <!--Cierre-->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">Cierre</h5>
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-danger text-center" role="alert">
+                  <p>{{message}}</p>
+                </div>
+                {%endfor%} {%endif%} {%endwith%}
+                <div class="form-check-inline">
+                  <div class="form-check form-check-inline">
+                    {{ form.term(class="form-check-input",title="Se recuerda
+                    plazo para que el titular nos llame(no mayor a 24hs)") }} {{
+                    form.term.label(class='form-check-label', for='term') }}
+                  </div>
+                </div>
+                <div class="form-check form-check-inline">
+                  {{
+                  form.negative_consequences(class="form-check-input",title="Se
+                  recuerda consecuencia negaticas del no llamado(moderado)") }}
+                  {{ form.negative_consequences.label(class='form-check-label',
+                  for='negative_consequences') }}
+                </div>
+                <div class="form-check form-check-inline">
+                  {{ form.provide_data(class="form-check-input",title="Debe
+                  brindar y repasar nuestros datos para comunicarse") }} {{
+                  form.provide_data.label(class='form-check-label',
+                  for='provide_data') }}
+                </div>
+              </div>
+            </div>
+            <br />
+            {{ form.btn_submit(class='btn btn-outline-info btn-md btn-block') }}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

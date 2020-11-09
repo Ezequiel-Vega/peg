@@ -1,0 +1,29 @@
+{%extends 'navbar_admin.html'%} {% block title %}Admins{% endblock %} {% block
+body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Nombre y Apellido</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for admin in admins%}
+          <tr>
+            <td>{{admin._id}}</td>
+            <td>{{admin.username}}</td>
+            <td>{{admin.name}} - {{admin.last_name}}</td>
+            <td><a data-method='delete' href="/api/v1/admin/user/{{admin._id}}" class="btn btn-danger btn-md btn-block">Eliminar</a></td>
+            {%endfor%}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{%endblock%}

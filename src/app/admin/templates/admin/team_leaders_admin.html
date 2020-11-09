@@ -1,0 +1,31 @@
+{%extends 'navbar_admin.html'%} {% block title %}Team Leader{% endblock %} {% block
+body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Nombre y Apellido</th>
+            <th>N° Evaluaciones</th>
+            <th>Ultima Evaluacion</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for team_leader in team_leaders%}
+          <tr>
+            <td>{{team_leader.username}}</td>
+            <td>{{team_leader.name}} - {{team_leader.last_name}}</td>
+            <td>{{team_leader.quantity_evaluations}}</td>
+            <td>{{team_leader.date_last_evaluation}}</td> 
+            <td><a href="/api/v1/admin/user/{{team_leader._id}}" class="btn btn-danger btn-md btn-block">Eliminar</a></td>
+            {%endfor%}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{%endblock%}

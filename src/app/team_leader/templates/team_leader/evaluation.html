@@ -1,0 +1,111 @@
+{%extends 'navbar.html'%} {%block title%}Evaluaciones{%endblock%} {%block body%}
+<div class="container pt-4">
+  <div class="row py-4">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <!--Cargar Datos a evaluar-->
+            <div class="col-md">
+              {%with messages = get_flashed_messages()%} {%if messages%} {%for
+              message in messages%}
+              <div class="alert alert-danger text-center" role="alert">
+                {{message}}
+              </div>
+              {%endfor%} {%endif%} {%endwith%} {{form.hidden_tag()}}
+              <form
+                action="/api/v1/team_leader/data"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <div class="row">
+                  <div class="col-md-4 pb-4">
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      id="btn_neotel"
+                      onclick="SeachAudio()"
+                    >
+                      Buscar Audio
+                    </button>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name='audio' id="audio" class="custom-file-input pr-4" >
+                        <label for='audio' class="custom-file-label pl-4">Buscar Audio</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  {{form.id_manager.label}}
+                  {{form.id_manager(class="form-control", placeholder="Id del Gestor")}}
+                </div>
+                <div class="pb-4">
+                  <p>{{form.default.label(class="form-check-label")}}</p>
+                  {{form.default(class="custom-select")}}
+                </div>
+                <div class="pb-4">
+                  <p>{{form.contact.label(class="form-check-label")}}</p>
+                  {{form.contact(class="custom-select")}}
+                </div>
+                {{form.btn_submit(class="btn btn-outline-dark btn-md
+                btn-block")}}
+              </form>
+            </div>
+            <!--Mostrar datos de evaluacion-->
+            <div class="col-md">
+              <div class="row">
+                <div class="col-md">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="text-center">Datos a evaluar</h4>
+                      {%if data.audio.audio%}
+                        <p class="txt-form">
+                            <h5>Audio:</h5>
+                            <audio src="/static/audios/{{data.audio.name}}" controls="controls" type="audio/mpeg" preload="preload"></audio>
+                        </p>
+                      {%endif%}
+                      <p class="txt-form">
+                        N° Interno del gestor: {{data.number_internal}}
+                      </p>
+                      <p class="txt-form">Telefono: {{data.phone}}</p>
+                      <p class="txt-form">
+                        Fecha del audio: {{data.date_audio}}
+                      </p>
+                      {%if data.contact != 'answering_machine'%}
+                        <p class="txt-form">Mora: {%if data.default == 'early'%} Temprana 
+                                                {%elif data.default == 'last'%} Tardia {%endif%}</p>
+                      {%endif%}
+                      <p class="txt-form">Contacto: {%if data.contact == 'headline'%} Titular
+                                                    {%elif data.contact == 'third'%} Terceros
+                                                    {%elif data.contact == 'answering_machine'%} Contestador{%endif%}</p>
+                      <p class="txt-form">
+                        Fecha de evaluacion: {{data.date_evaluation}}
+                      </p>
+                      <p class="txt-form">Team Leader: {{data.team_leader}}</p>
+
+                      <a
+                        href="/form_evaluation"
+                        class="btn btn-outline-primary btn-md btn-block"
+                        >Evaluar</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const SeachAudio = document.getElementById("btn_neotel");
+  SeachAudio.onclick = function () {
+    window.open("http://192.168.1.119/callcenter/");
+  };
+</script>
+{%endblock%}
