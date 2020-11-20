@@ -82,6 +82,7 @@ class ResultsEvaluation(db.Model):
         self.registration_one = registration_one
         self.registration_two = registration_two
         self.result = result
+        self.id_results_evaluation = uuid.uuid4()
 
     def save(self, message: float = None, closing: float = None):
         if message == None:

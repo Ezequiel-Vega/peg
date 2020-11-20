@@ -37,6 +37,7 @@ class ManageEvaluations(db.Model):
         self.id_manage_evaluation = uuid.uuid4()
         self.quantity = 0
         self.date_last_evaluation = datetime.now()
+        self.id_manage_evaluation = uuid.uuid4()
 
     def __repr__(self):
         return f"<ManageEvaluations {self.id_manage_evaluation}>"

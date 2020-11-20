@@ -53,6 +53,7 @@ class Evaluations(db.Model):
         self.id_data_evaluation = id_data_evaluation
         self.id_results_evaluation = id_results_evaluation
         self.id_users = id_user
+        self.id_evaluations = uuid.uuid4()
 
     def __repr__(self):
         return f"<Evaluations {self.id_evaluations}>"

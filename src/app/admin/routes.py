@@ -36,7 +36,7 @@ def check_session(function):
             category: Category = Category.by_id(session['user']['category'])
 
             # Comprobar categoria
-            name_category = category.category
+            name_category = category.category 
 
             if name_category == 'admin':
                return function(*args, **kwargs)
@@ -52,6 +52,19 @@ def check_session(function):
 #############################
 #           API             #
 #############################
+
+@app.route('/api/v1/admin/category')
+def category():
+    admin = Category('admin')
+    admin.save()
+
+    team = Category('team_leader')
+    team.save()
+
+    manager = Category('manager')
+    manager.save()
+
+    return "Saved all category"
 
 @app.route('/api/v1/admin/evaluations', methods=['POST'])
 @check_session
@@ -143,7 +156,7 @@ def add_user():
 
         # Buscar categoria
         category_db: Category = Category.by_category(category)
-
+       
         if category_db.category == 'team_leader':
             # Crear Gestion de evaluaciones
             management_evaluation: ManageEvaluations = ManageEvaluations()

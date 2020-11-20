@@ -73,6 +73,7 @@ class DataEvaluations(db.Model):
         self.date_evaluation = date_evaluation
         self.date_audio = date_audio
         self.name_audio = name_audio
+        self.id_data_evaluation = uuid.uuid4()
 
     def __repr__(self):
         return f"<DataEvaluations {self.id_data_evaluation}>"
